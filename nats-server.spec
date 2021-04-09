@@ -4,7 +4,7 @@
 %global gobuilddir %{_builddir}/_build
 
 %global goipath github.com/nats-io/nats-server
-Version: 2.2.0
+Version: 2.2.1
 
 %gometa
 
