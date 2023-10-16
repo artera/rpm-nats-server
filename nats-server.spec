@@ -39,7 +39,7 @@ export GOPATH="%{gobuilddir}:${GOPATH:+${GOPATH}:}%{?gopath}"
 
 %build
 cd %{gobuilddir}/src/%{goipath}
-go build \
+/opt/go/bin/go build \
   -trimpath \
   -buildmode=pie \
   -o %{gobuilddir}/bin/nats-server .
