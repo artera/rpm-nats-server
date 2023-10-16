@@ -19,6 +19,7 @@ Source0: %{gosource}
 Source1: nats.user
 
 BuildRequires: systemd-rpm-macros
+BuildRequires: wget
 
 %description
 NATS is a simple, secure and performant communications system for digital
@@ -36,6 +37,7 @@ systems.
 mkdir -p %{gobuilddir}/src/$(dirname %{goipath})
 ln -s $(pwd) %{gobuilddir}/src/%{goipath}
 export GOPATH="%{gobuilddir}:${GOPATH:+${GOPATH}:}%{?gopath}"
+wget https://go.dev/dl/go1.20.10.linux-amd64.tar.gz -O- | tar -C /opt -xzf -
 
 %build
 cd %{gobuilddir}/src/%{goipath}
