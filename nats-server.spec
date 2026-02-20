@@ -37,11 +37,15 @@ systems.
 mkdir -p %{gobuilddir}/src/$(dirname %{goipath})
 ln -s $(pwd) %{gobuilddir}/src/%{goipath}
 export GOPATH="%{gobuilddir}:${GOPATH:+${GOPATH}:}%{?gopath}"
-curl -Ls https://go.dev/dl/go1.20.10.linux-amd64.tar.gz | tar -xzf -
+
+if [ "1.23.0" != "$(echo -e "1.23.0\n$(go version | grep -oE '\b[0-9]+\.[0-9]+\.[0-9]+')" | sort -V | head -1)" ]; then
+  curl -Ls https://go.dev/dl/go1.26.0.linux-amd64.tar.gz | tar -xzf -
+fi
 
 %build
 cd %{gobuilddir}/src/%{goipath}
-./go/bin/go build \
+export PATH="$PATH:$PWD/go/bin"
+go build \
   -trimpath \
   -buildmode=pie \
   -o %{gobuilddir}/bin/nats-server .
